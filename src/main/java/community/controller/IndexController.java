@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * <p>项目文档： TODO</p>
+ * <p>项目文档： 首页接口</p>
  *
  * @author liming
  * @version 1.0.0
