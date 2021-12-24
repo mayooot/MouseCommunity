@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.UUID;
 
 /**
@@ -45,7 +46,7 @@ public class AuthorizeController {
     public String callback(@RequestParam(name="code") String code,
                            @RequestParam(name="state") String state,
                            HttpServletRequest request,
-                           HttpServletResponse response) {
+                           HttpServletResponse response) throws IOException {
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(clientSecret);
@@ -67,6 +68,10 @@ public class AuthorizeController {
             request.getSession().setAttribute("user", githubUser);
         }
         System.out.println(githubUser);
-        return "redirect:/";
+
+        // 解决重定向后uri参数携带JSESSIONID
+        response.sendRedirect("/");
+        return null;
+        // return "redirect:/";
     }
 }
