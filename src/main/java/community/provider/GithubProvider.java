@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
- * <p>项目文档： TODO</p>
+ * <p>项目文档： 使用OKHttp发送请求到github</p>
  *
  * @author liming
  * @version 1.0.0
@@ -57,7 +57,4 @@ public class GithubProvider {
 
         return null;
     }
-
-
-
 }
