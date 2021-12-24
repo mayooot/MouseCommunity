@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>发布</title>
+    <link rel="shortcut icon" href="../static/img/icon.png">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body style="background: #efefef">
+   <!-- 导航条 -->
+   <div th:replace="~{layout/head::head}"></div>
+
+    <div class="container-fluid main" style="margin: 30px; background: white">
+      <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
+            <h2><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 发表新贴</h2>
+            <hr/>
+
+            <form action="">
+                <div class="form-group">
+                    <label for="title">标题</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="这个贴子距离火就差这个标题了~">
+                </div>
+                <div class="form-group">
+                    <label for="description">内容</label>
+                    <textarea class="form-control" rows="7" id="description" placeholder="来吧，尽情发挥吧..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tag">添加标签</label>
+                    <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签，以，分割">
+                </div>
+                <button type="button" class="btn btn-success btn-publish" style="margin-bottom: 15px;">发表</button>
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <h3>贴子发表指南</h3>
+            <ul class="list-unstyled">
+                <li>👻 标题：请用精简的语言描述您发布的贴子，不超过25字</li>
+                <li>😊 内容：详细补充您的问题内容，并确保内容描述清晰直观，并提供一些资料</li>
+                <li>😝 选择标签：选择一个或者多个合适的标签，用逗号隔开，每个标签不超过10个字</li>
+                <li>😅 等级：用户根据等级可分为高级用户、普通用户；金牌用户、银牌用户、铜牌用户、青铜用户。多多回复可以加经验升级</li>
+                <li>🥵 支持一下</li>
+            </ul>
+        </div>
+      </div>
+    </div>
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  </body>
+</html>

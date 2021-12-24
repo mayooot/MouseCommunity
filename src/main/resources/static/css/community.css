@@ -1,0 +1,10 @@
+body {
+    background: black;
+}
+.main {
+    background: white;
+    margin: 30px;
+}
+.btn-publish {
+    margin-bottom: 15px;
+}
