@@ -7,7 +7,8 @@
 [es](https://elasticsearch.cn/explore)  
 [H2](https://www.h2database.com/html/main.html)  
 [Github OAuth](https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app)  
-[Mybatis Plus](https://baomidou.com/)
+[Mybatis Plus](https://baomidou.com/)  
+[Thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#what-is-thymeleaf)
 ## 工具
 [Git](https://git-scm.com/download/)  
 [Visual Paradigm](https://www.visual-paradigm.com/cn/)

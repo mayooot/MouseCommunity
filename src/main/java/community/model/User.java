@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.sql.PreparedStatement;
+
 /**
  * <p>项目文档： TODO</p>
  *
@@ -22,4 +24,6 @@ public class User {
     private String token;
     private Long gmtCreate;
     private Long gmtModified;
+    private String avatarUrl;
+    private String bio;
 }
