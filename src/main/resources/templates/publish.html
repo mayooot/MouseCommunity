@@ -12,9 +12,9 @@
     <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
     <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
     <!--[if lt IE 9]>
-    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-    <![endif]-->
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
   </head>
   <body style="background: #efefef">
    <!-- 导航条 -->
@@ -26,20 +26,33 @@
             <h2><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 发表新贴</h2>
             <hr/>
 
-            <form action="">
+            <form action="/publish" method="post">
                 <div class="form-group">
-                    <label for="title">标题</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="这个贴子距离火就差这个标题了~">
+                    <label for="title">标题&nbsp;<span class="glyphicon glyphicon-bookmark"></span></label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="这个贴子距离火就差这个标题了~" th:value="${title}">
                 </div>
                 <div class="form-group">
-                    <label for="description">内容</label>
-                    <textarea class="form-control" rows="7" id="description" placeholder="来吧，尽情发挥吧..."></textarea>
+                    <label for="content">内容&nbsp;<span class="glyphicon glyphicon-pencil"></span></label>
+                    <textarea class="form-control" rows="7" id="content" name="content" placeholder="来吧，尽情发挥吧..." th:text="${content}"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="tag">添加标签</label>
-                    <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签，以，分割">
+                    <label for="tag">添加标签 &nbsp;<span class="glyphicon glyphicon-tag"></span></label>
+                    <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签，以，分割" style="width: 250px;" th:value="${tag}">
                 </div>
-                <button type="button" class="btn btn-success btn-publish" style="margin-bottom: 15px;">发表</button>
+                <div class="container-fluid main">
+                    <div class="row">
+                        <button type="submit" class="btn btn-success btn-publish col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 15px; float: right">发布</button>
+                        <div th:if="${message} != null" class="col-lg-6 col-md-12 col-sm-12 col-xs-12 alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <span th:text="${message}" role="alert"></span>
+                        </div>
+<!--                        <div th:if="${message} == '发布成功！去看看吧~'" class="col-lg-6 col-md-12 col-sm-12 col-xs-12 alert alert-success alert-dismissible">-->
+<!--                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+<!--                            <a href="/" class="alert-link" role="alert" th:text="${message}">...</a>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+
             </form>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">

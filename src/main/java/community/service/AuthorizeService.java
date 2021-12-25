@@ -55,7 +55,7 @@ public class AuthorizeService {
         GithubUser githubUser = githubProvider.getUser(accessToken);
 
         // 如果获取的github对象不为空，则封装一个对象实体，插入到数据库中
-        if (githubUser != null) {
+        if (githubUser != null && githubUser.getId() != null) {
             User user = new User();
             String token = UUID.randomUUID().toString();
             user.setToken(token);
