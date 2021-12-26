@@ -36,7 +36,7 @@
           </form>
           <ul class="nav navbar-nav navbar-right">
             <li th:if="${session.user != null}">
-              <a href="/publish">发布 <span class="glyphicon glyphicon-send"></span></a>
+              <a href="/publish">发布 <span class="glyphicon glyphicon-send" style="color: rgb(102, 177, 255)"></span></a>
             </li>
             <li th:if="${session.user == null}"><a href="https://github.com/login/oauth/authorize?client_id=7d8494545673126c8fa5&redirect_uri=http://localhost/callback&scope=user&state=1">登录</a></li>
             <li class="dropdown" th:if="${session.user != null}">

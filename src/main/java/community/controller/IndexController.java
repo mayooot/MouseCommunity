@@ -1,6 +1,8 @@
 package community.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import community.dto.PostDTO;
 import community.mapper.UserMapper;
 import community.model.Post;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -34,14 +37,17 @@ public class IndexController {
   private PostService postService;
 
     @GetMapping("/")
-    public String index(HttpServletRequest request, Model model) {
+    public String index(HttpServletRequest request,
+                        Model model,
+                        @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum,
+                        @RequestParam(name ="pageSize", defaultValue = "5") Integer pageSize) {
         // 调用IndexService业务接口
         indexService.index(request);
 
         // 调用PostService业务接口，获取所有贴子的信息
-        List<PostDTO> posts = postService.list();
-        posts.forEach(System.out::println);
-        model.addAttribute("posts", posts);
+        PageDTO pageDTO = postService.page(pageNum, pageSize);
+        // 调用PostService业务接口，获取分页后的信息
+        model.addAttribute("pageDTO", pageDTO);
         return "index";
     }
 }
