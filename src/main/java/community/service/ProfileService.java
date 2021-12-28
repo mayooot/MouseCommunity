@@ -20,19 +20,22 @@ import java.util.List;
  *
  * @author liming
  * @version 1.0.0
- * @createTime 2021年12月25日 20:16:00
+ * @createTime 2021年12月27日 15:54:00
  */
 @Service
-public class PostService {
+public class ProfileService {
+
     @Autowired
     private PostMapper postMapper;
 
     @Autowired
     private UserMapper userMapper;
 
-    public PageDTO page(Integer pageNum, Integer pageSize) {
-       // 使用mp的分页查询，第pageNum页，pageSize条的记录,记录包括一些分页的信息
-        Page<Post> records = postMapper.selectPage(new Page<>(pageNum, pageSize), null);
+    public PageDTO<PostDTO> list(String accountId, Integer pageNum, Integer pageSize) {
+        // 使用mp的分页查询，第pageNum页，pageSize条的记录,记录包括一些分页的信息
+        QueryWrapper<Post> postQueryWrapper = new QueryWrapper<>();
+        postQueryWrapper.eq("creator", accountId);
+        Page<Post> records = postMapper.selectPage(new Page<>(pageNum, pageSize), postQueryWrapper);
         // 使用mp内置的PageDTO，并在里面封装分页所需要的信息（当前页数，总页数..)和贴子具体信息
         PageDTO<PostDTO> pageDTO = new PageDTO<>();
 
@@ -45,7 +48,6 @@ public class PostService {
         for (Post post : posts) {
             QueryWrapper<User> userWrapper = new QueryWrapper<>();
             userWrapper.eq("account_id", post.getCreator());
-            // 查询到一个用户多条数据，取最新的那一条
             List<User> userRecords = userMapper.selectList(userWrapper);
             Integer latestRecord = userRecords.size() == 0 ? 0 : userRecords.size() - 1;
 
@@ -60,9 +62,6 @@ public class PostService {
         pageDTO.setPages(records.getPages());
         pageDTO.setTotal(records.getTotal());
 
-        System.out.println(records.getPages());
-
         return pageDTO;
     }
-
 }

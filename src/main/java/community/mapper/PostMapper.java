@@ -2,7 +2,6 @@ package community.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import community.model.Post;
-import lombok.Data;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

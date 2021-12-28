@@ -70,7 +70,7 @@ public class AuthorizeService {
 
             // 将token写入cookie并将user写入session
             response.addCookie(new Cookie("token", token));
-            request.getSession().setAttribute("user", githubUser);
+            // request.getSession().setAttribute("user", githubUser);
         }
     }
 }

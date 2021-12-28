@@ -1,21 +1,8 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>鼠鼠论坛</title>
     <link rel="shortcut icon" href="../static/img/icon.png">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-
-    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
-    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
-    <!--[if lt IE 9]>
-    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-    <![endif]-->
   </head>
   <body>
     <nav th:fragment="head" class="navbar navbar-default">
@@ -36,24 +23,22 @@
           </form>
           <ul class="nav navbar-nav navbar-right">
             <li th:if="${session.user != null}">
-              <a href="/publish">发布 <span class="glyphicon glyphicon-send" style="color: rgb(102, 177, 255)"></span></a>
+              <a href="/publish">发布 <span class="glyphicon glyphicon-send" style="color: rgb(80, 143, 244)"></span></a>
             </li>
             <li th:if="${session.user == null}"><a href="https://github.com/login/oauth/authorize?client_id=7d8494545673126c8fa5&redirect_uri=http://localhost/callback&scope=user&state=1">登录</a></li>
             <li class="dropdown" th:if="${session.user != null}">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span th:text="${session.user.getName()}"></span> <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <span th:text="${session.user.getName()}"></span>
+                <span class="caret"></span>
+              </a>
               <ul class="dropdown-menu">
-                <li><a href="#">消息中心</a></li>
-                <li><a href="#">个人资料</a></li>
-                <li><a href="#">退出登录</a></li>
+                <li><a href="/profile/posts">我的贴子</a></li>
+                <li><a href="/exit">退出登录</a></li>
               </ul>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
   </body>
 </html>

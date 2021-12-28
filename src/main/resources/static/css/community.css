@@ -1,10 +1,17 @@
-body {
-    background: black;
-}
-.main {
-    background: white;
+.main{
     margin: 30px;
+    background-color: white;
 }
-.btn-publish {
-    margin-bottom: 15px;
+
+body{
+    background-color: #efefef;
+}
+
+.btn-publish{
+    float: right;
+    margin-top: 15px;
+}
+
+.profile .section{
+    margin-top: 15px;
 }

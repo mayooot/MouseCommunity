@@ -2,10 +2,7 @@ package community.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import community.model.User;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 /**
