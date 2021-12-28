@@ -45,24 +45,46 @@ public class PostService {
         for (Post post : posts) {
             QueryWrapper<User> userWrapper = new QueryWrapper<>();
             userWrapper.eq("account_id", post.getCreator());
-            // 查询到一个用户多条数据，取最新的那一条
-            List<User> userRecords = userMapper.selectList(userWrapper);
-            Integer latestRecord = userRecords.size() == 0 ? 0 : userRecords.size() - 1;
-
+            User user = userMapper.selectOne(userWrapper);
             PostDTO postDTO = new PostDTO();
-            postDTO.setUser(userRecords.get(latestRecord));
+            postDTO.setUser(user);
             BeanUtils.copyProperties(post, postDTO);
             postDTOList.add(postDTO);
         }
         pageDTO.setRecords(postDTOList);
+
+
         pageDTO.setCurrent(records.getCurrent());
         pageDTO.setSize(records.getSize());
         pageDTO.setPages(records.getPages());
         pageDTO.setTotal(records.getTotal());
 
-        System.out.println(records.getPages());
 
         return pageDTO;
     }
+
+    /**
+     * 通过账户id，查询该用户发布的贴子
+     * @param id
+     * @return
+     */
+    public PostDTO getById(Integer id) {
+        PostDTO postDTO = new PostDTO();
+
+        // 通过id查询到该贴子的信息
+        Post post = postMapper.selectById(id);
+        // 将查询到的贴子信息copy到postDTO中
+        BeanUtils.copyProperties(post, postDTO);
+
+        // 通过贴子信息中的账户id，找到该用户的信息并copy到postDTO中
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("account_id", post.getCreator());
+        User user = userMapper.selectOne(wrapper);
+        postDTO.setUser(user);
+
+        return postDTO;
+    }
+
+
 
 }

@@ -48,11 +48,10 @@ public class ProfileService {
         for (Post post : posts) {
             QueryWrapper<User> userWrapper = new QueryWrapper<>();
             userWrapper.eq("account_id", post.getCreator());
-            List<User> userRecords = userMapper.selectList(userWrapper);
-            Integer latestRecord = userRecords.size() == 0 ? 0 : userRecords.size() - 1;
+            User user = userMapper.selectOne(userWrapper);
 
             PostDTO postDTO = new PostDTO();
-            postDTO.setUser(userRecords.get(latestRecord));
+            postDTO.setUser(user);
             BeanUtils.copyProperties(post, postDTO);
             postDTOList.add(postDTO);
         }

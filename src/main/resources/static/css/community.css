@@ -15,3 +15,26 @@ body{
 .profile .section{
     margin-top: 15px;
 }
+.text-desc {
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
+
+
+a:hover {
+    color: rgb(80, 143, 244);
+    text-decoration: none;
+}
+
+.community-menu {
+    font-size: 13px;
+    color: #999;
+}
+
+.community-avatar {
+    width: 45px;
+}
+a {
+    color: black;
+}

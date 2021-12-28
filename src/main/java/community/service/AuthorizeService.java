@@ -1,5 +1,6 @@
 package community.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import community.dto.AccessTokenDTO;
 import community.dto.GithubUser;
 import community.mapper.UserMapper;
@@ -66,11 +67,21 @@ public class AuthorizeService {
             user.setAvatarUrl(githubUser.getAvatarUrl());
             user.setBio(githubUser.getBio());
 
-            userMapper.insert(user);
+            // 通过account_id查询用户表，如果该记录存在则更新该用户信息，如果不存在则插入
+            QueryWrapper<User> wrapper = new QueryWrapper<>();
+            wrapper.eq("account_id", githubUser.getId());
+            User record = userMapper.selectOne(wrapper);
+
+            if (record != null) {
+                // 更新
+                userMapper.update(user, wrapper);
+            } else {
+                // 插入
+                userMapper.insert(user);
+            }
 
             // 将token写入cookie并将user写入session
             response.addCookie(new Cookie("token", token));
-            // request.getSession().setAttribute("user", githubUser);
         }
     }
 }
