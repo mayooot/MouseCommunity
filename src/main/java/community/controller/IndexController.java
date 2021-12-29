@@ -24,10 +24,12 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model,
                         @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum,
-                        @RequestParam(name ="pageSize", defaultValue = "5") Integer pageSize) {
+                        @RequestParam(name ="pageSize", defaultValue = "5") Integer pageSize,
+                        @RequestParam(name ="search", defaultValue = "") String search) {
+        model.addAttribute("search", search);
 
         // 调用PostService业务接口，获取所有贴子的信息
-        PageDTO pageDTO = postService.page(pageNum, pageSize);
+        PageDTO pageDTO = postService.page(pageNum, pageSize, search);
         // 调用PostService业务接口，获取分页后的信息
         model.addAttribute("pageDTO", pageDTO);
         return "index";

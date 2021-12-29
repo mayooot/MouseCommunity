@@ -1,5 +1,6 @@
 package community.service;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
@@ -12,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +32,13 @@ public class PostService {
     @Autowired
     private UserMapper userMapper;
 
-    public PageDTO page(Integer pageNum, Integer pageSize) {
-       // 使用mp的分页查询，第pageNum页，pageSize条的记录,记录包括一些分页的信息
-        Page<Post> records = postMapper.selectPage(new Page<>(pageNum, pageSize), null);
+    public PageDTO page(Integer pageNum, Integer pageSize, String search) {
+        QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
+        if (StrUtil.isNotBlank(search)) {
+            queryWrapper.like("title", search);
+        }
+        // 使用mp的分页查询，第pageNum页，pageSize条的记录,记录包括一些分页的信息
+        Page<Post> records = postMapper.selectPage(new Page<>(pageNum, pageSize), queryWrapper);
         // 使用mp内置的PageDTO，并在里面封装分页所需要的信息（当前页数，总页数..)和贴子具体信息
         PageDTO<PostDTO> pageDTO = new PageDTO<>();
 
@@ -62,6 +68,7 @@ public class PostService {
 
         return pageDTO;
     }
+
 
     /**
      * 通过账户id，查询该用户发布的贴子

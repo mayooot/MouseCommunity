@@ -1,5 +1,6 @@
 package community.test;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.PipedReader;
 import java.sql.SQLOutput;
+import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +37,22 @@ public class MybatisPlusTest {
 
     @Autowired
     private PostMapper postMapper;
+
+    @Test
+    public void testSearch() {
+        String search = "1";
+        if (StrUtil.isNotBlank(search)) {
+            QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
+            queryWrapper.like("title", search);
+            Page<Post> pages = postMapper.selectPage(new Page<>(1, 5), queryWrapper);
+            List<Post> records = pages.getRecords();
+
+            records.forEach(post -> System.out.println(post.getTitle()));
+
+            System.out.println(pages.getSize());
+            System.out.println(pages.getTotal());
+        }
+    }
 
     @Test
     public void testSelect() {
@@ -57,7 +75,9 @@ public class MybatisPlusTest {
 
     @Test
     public void testPage() {
-        Page<Post> postPage = postMapper.selectPage(new Page<>(2, 5), null);
+        QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("title", "1");
+        Page<Post> postPage = postMapper.selectPage(new Page<>(1, 5), queryWrapper);
         System.out.println("records：" + postPage.getRecords());
         System.out.println("pages：" + postPage.getPages());
         System.out.println("total：" + postPage.getTotal());
