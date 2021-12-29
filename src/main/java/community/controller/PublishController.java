@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.html.HTML;
 
 /**
  * <p>项目文档： 发布文章</p>
@@ -24,15 +26,30 @@ public class PublishController {
     @Autowired
     private PublishService publishService;
 
+
     @GetMapping("/publish")
     public String publish() {
         return "publish";
+    }
+
+    @GetMapping("/publish/{id}")
+    public String edit(@PathVariable(name="id") Integer id, Model model) {
+        Post post = publishService.edit(id);
+        if (post != null) {
+            model.addAttribute("title", post.getTitle());
+            model.addAttribute("content", post.getContent());
+            model.addAttribute("tag", post.getTag());
+            model.addAttribute("id", post.getId());
+            return "publish";
+        }
+        return "redirect:/";
     }
 
     @PostMapping("/publish")
     public String doPublish(@RequestParam(value = "title") String title,
                             @RequestParam(value = "content") String content,
                             @RequestParam(value = "tag") String tag,
+                            @RequestParam(value = "id") Integer id,
                             HttpServletRequest request,
                             Model model) {
 
@@ -64,13 +81,14 @@ public class PublishController {
 
         // 封装一个post对象
         Post post = new Post();
+        post.setId(id);
         post.setTitle(title);
         post.setContent(content);
         post.setTag(tag);
         post.setCreator(user.getAccountId());
         post.setGmtCreate(System.currentTimeMillis());
         post.setGmtModified(post.getGmtCreate());
-        publishService.addPost(post);
+        publishService.createOrUpdate(post);
         model.addAttribute("message", "发布成功！去看看吧~");
         return "redirect:/";
     }
