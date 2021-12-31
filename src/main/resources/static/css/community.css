@@ -38,3 +38,7 @@ a:hover {
 a {
     color: black;
 }
+
+.jumbotron {
+    margin: 50px;
+}

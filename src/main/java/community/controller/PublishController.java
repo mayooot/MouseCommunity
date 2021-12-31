@@ -1,8 +1,9 @@
 package community.controller;
 
+import community.dto.PostDTO;
 import community.model.Post;
 import community.model.User;
-import community.service.PublishService;
+import community.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.text.html.HTML;
 
 /**
  * <p>项目文档： 发布文章</p>
@@ -24,27 +24,42 @@ import javax.swing.text.html.HTML;
 @Controller
 public class PublishController {
     @Autowired
-    private PublishService publishService;
-
+    private PostService postService;
 
     @GetMapping("/publish")
     public String publish() {
         return "publish";
     }
 
+    /**
+     * 修改帖子
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/publish/{id}")
     public String edit(@PathVariable(name="id") Integer id, Model model) {
-        Post post = publishService.edit(id);
-        if (post != null) {
-            model.addAttribute("title", post.getTitle());
-            model.addAttribute("content", post.getContent());
-            model.addAttribute("tag", post.getTag());
-            model.addAttribute("id", post.getId());
+        PostDTO postDTO = postService.getById(id);
+        if (postDTO != null) {
+            model.addAttribute("title", postDTO.getTitle());
+            model.addAttribute("content", postDTO.getContent());
+            model.addAttribute("tag", postDTO.getTag());
+            model.addAttribute("id", postDTO.getId());
             return "publish";
         }
         return "redirect:/";
     }
 
+    /**
+     * 发布贴子
+     * @param title
+     * @param content
+     * @param tag
+     * @param id
+     * @param request
+     * @param model
+     * @return
+     */
     @PostMapping("/publish")
     public String doPublish(@RequestParam(value = "title") String title,
                             @RequestParam(value = "content") String content,
@@ -88,8 +103,7 @@ public class PublishController {
         post.setCreator(user.getAccountId());
         post.setGmtCreate(System.currentTimeMillis());
         post.setGmtModified(post.getGmtCreate());
-        publishService.createOrUpdate(post);
-        model.addAttribute("message", "发布成功！去看看吧~");
+        postService.insertOrUpdate(post);
         return "redirect:/";
     }
 }

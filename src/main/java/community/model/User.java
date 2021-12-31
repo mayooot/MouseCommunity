@@ -10,7 +10,7 @@ import lombok.Data;
  *
  * @author liming
  * @version 1.0.0
- * @createTime 2021年12月23日 20:16:00
+ * @createTime 2021年12月31日 19:08:00
  */
 @TableName("user")
 @Data

@@ -4,6 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
+import community.Exception.CustomizeErrorCode;
+import community.Exception.CustomizeException;
 import community.dto.PostDTO;
 import community.mapper.PostMapper;
 import community.mapper.UserMapper;
@@ -13,7 +15,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,6 +81,9 @@ public class PostService {
 
         // 通过id查询到该贴子的信息
         Post post = postMapper.selectById(id);
+        if (post == null) {
+            throw new CustomizeException(CustomizeErrorCode.POST_NOT_FOUND);
+        }
         // 将查询到的贴子信息copy到postDTO中
         BeanUtils.copyProperties(post, postDTO);
 
@@ -90,6 +94,31 @@ public class PostService {
         postDTO.setUser(user);
 
         return postDTO;
+    }
+
+
+    public void insertOrUpdate(Post post) {
+        if (post.getId() == null) {
+            // 创建
+            postMapper.insert(post);
+        } else {
+            // 更新
+            QueryWrapper<Post> wrapper = new QueryWrapper<>();
+            wrapper.eq("id", post.getId());
+            int updated = postMapper.update(post, wrapper);
+            if (updated != 1) {
+                throw new CustomizeException(CustomizeErrorCode.POST_NOT_FOUND);
+            }
+        }
+    }
+
+
+    /**
+     * 添加贴子
+     * @param post
+     */
+    public void addPost(Post post) {
+        postMapper.insert(post);
     }
 
 

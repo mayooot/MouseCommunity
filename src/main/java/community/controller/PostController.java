@@ -22,6 +22,12 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    /**
+     * 通过id获取贴子
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/post/{id}")
     public String post(@PathVariable(name="id") Integer id, Model model) {
         PostDTO postDTO = postService.getById(id);
@@ -29,6 +35,11 @@ public class PostController {
         return "post";
     }
 
+    /**
+     * 通过标题搜索贴子
+     * @param search
+     * @return
+     */
     @GetMapping("/post/search")
     public String search(@RequestParam(name="search", defaultValue = "") String search) {
         if (StrUtil.isNotBlank(search)) {
