@@ -122,5 +122,14 @@ public class PostService {
     }
 
 
-
+    /**
+     * 增加阅读数
+     * @param id 贴子的id
+     */
+    public void incView(Integer id) {
+        Post post = postMapper.selectById(id);
+        Long updateViewCount = post.getViewCount() + 1;
+        post.setViewCount(updateViewCount);
+        postMapper.updateById(post);
+    }
 }

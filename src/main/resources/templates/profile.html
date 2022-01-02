@@ -41,17 +41,17 @@
           <nav aria-label="Page navigation">
             <ul class="pagination" th:with="count=${pageDTO.pages}">
               <li>
-                <a th:href="@{'/profile/'+ ${section} +'?pageNum='+ 1 + '&pageSize=6'}" aria-label="Previous">
+                <a th:href="@{'/profile/'+ ${section} +'?pageNum='+ 1 }" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
 
               <li th:each="index:${#numbers.sequence(1,count)}" th:class= "${pageDTO.current == index} ? 'active' : ''">
-                <a th:href="@{'/profile/'+ ${section} +'?pageNum='+ ${index} + '&pageSize=6'}"  th:text="${index}"></a>
+                <a th:href="@{'/profile/'+ ${section} +'?pageNum='+ ${index} }"  th:text="${index}"></a>
               </li>
 
               <li>
-                <a th:href="@{'/profile/'+ ${section} +'?pageNum='+ ${pageDTO.pages} + '&pageSize=6'}" aria-label="Next">
+                <a th:href="@{'/profile/'+ ${section} +'?pageNum='+ ${pageDTO.pages} }" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                 </a>
               </li>

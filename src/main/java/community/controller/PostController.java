@@ -23,14 +23,16 @@ public class PostController {
     private PostService postService;
 
     /**
-     * 通过id获取贴子
-     * @param id
-     * @param model
-     * @return
+     * 打开贴子详情页
+     * @param id 贴子的id
+     * @param model 用于设置attribute
+     * @return 贴子的详情页包括贴子信息和用户信息
      */
     @GetMapping("/post/{id}")
     public String post(@PathVariable(name="id") Integer id, Model model) {
         PostDTO postDTO = postService.getById(id);
+        // 累加阅读数
+        postService.incView(id);
         model.addAttribute("post", postDTO);
         return "post";
     }

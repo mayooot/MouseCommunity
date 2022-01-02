@@ -10,6 +10,16 @@
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script>
+      window.onload = function () {
+        debugger
+        let closable = window.localStorage.getItem("closable")
+        if (closable === "true") {
+          window.close()
+          window.localStorage.removeItem("closable")
+        }
+      }
+    </script>
   </head>
   <body style="background: #efefef">
     <!--导入导航条-->
@@ -30,7 +40,6 @@
               <h4 class="media-heading" >
                 <a th:href="@{'/post/'+ ${page.id} }" th:text="${page.title}"></a>
               </h4>
-<!--              <span th:text="${page.content}"></span><br>-->
               <span  class="text-desc">
                   <span th:text="${page.user.name}"></span> 发表了该贴
                 • <span th:text="${page.commentCount}"></span> 个回复
@@ -43,17 +52,17 @@
           <nav aria-label="Page navigation">
             <ul class="pagination" th:with="count=${pageDTO.pages}">
               <li>
-                <a th:href="@{'/?pageNum=' + 1 + '&pageSize=6' + '&search=' + ${search} }" aria-label="Previous">
+                <a th:href="@{'/?pageNum=' + 1 + '&search=' + ${search} }" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
 
               <li th:each="index:${#numbers.sequence(1,count)}" th:class= "${pageDTO.current == index} ? 'active' : ''">
-                <a th:href="@{'/?pageNum='+ ${index} + '&pageSize=6' + '&search=' + ${search} }"  th:text="${index}"></a>
+                <a th:href="@{'/?pageNum='+ ${index} + '&search=' + ${search} }"  th:text="${index}"></a>
               </li>
 
               <li>
-                <a th:href="@{'/?pageNum='+ ${pageDTO.pages} + '&pageSize=6' + '&search='+ ${search} }" aria-label="Next">
+                <a th:href="@{'/?pageNum='+ ${pageDTO.pages} + '&search='+ ${search} }" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                 </a>
               </li>

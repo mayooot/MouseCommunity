@@ -15,12 +15,12 @@ body{
 .profile .section{
     margin-top: 15px;
 }
+
 .text-desc {
     font-size: 12px;
     font-weight: normal;
     color: #999;
 }
-
 
 a:hover {
     color: rgb(80, 143, 244);
@@ -41,4 +41,17 @@ a {
 
 .jumbotron {
     margin: 50px;
+}
+
+.media-body {
+    padding-top: 13px;
+}
+
+.comment {
+    margin: 10px 0;
+}
+
+.btn-comment {
+    float: right;
+    margin-bottom: 10px;
 }
